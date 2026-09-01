@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0,
+                   maximum-scale=1.0, user-scalable=no">
 
+    <meta name="theme-color" content="#0b0b10">
     <title>EarnPoint</title>
 
+    <!-- Telegram Mini App SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
     <link rel="stylesheet" href="style.css">
@@ -15,80 +19,507 @@
 
 <div class="app">
 
-    <header>
-        <div>
-            <h1>EarnPoint</h1>
-            <p id="username">Welcome 👋</p>
+    <!-- TOP BAR -->
+    <header class="topbar">
+        <div class="user-box">
+            <div class="avatar" id="avatar">👤</div>
+
+            <div>
+                <div class="hello">Welcome back</div>
+                <div class="username" id="username">EarnPoint User</div>
+            </div>
         </div>
 
-        <div class="avatar">👤</div>
+        <button class="icon-btn" onclick="showNotifications()">
+            🔔
+            <span class="notification-dot"></span>
+        </button>
     </header>
 
-    <section class="balance">
-        <p>Your Balance</p>
-        <h2>🪙 <span id="points">0</span></h2>
-        <span id="rupees">≈ ₹0.00</span>
-    </section>
 
-    <h3>⚡ Earn Points</h3>
+    <!-- HOME PAGE -->
+    <main id="homePage" class="page active">
 
-    <div class="tasks">
+        <!-- BALANCE -->
+        <section class="balance-card">
 
-        <button class="task" onclick="loginReward()">
-            <span class="icon">📅</span>
-            <div>
-                <b>Daily Login</b>
-                <small>Claim your daily reward</small>
+            <div class="balance-top">
+                <span>Total Balance</span>
+
+                <span class="verified">
+                    ● LIVE
+                </span>
             </div>
-            <strong>+10</strong>
-        </button>
 
-        <button class="task" onclick="watchAd()">
-            <span class="icon">📺</span>
-            <div>
-                <b>Watch Ad</b>
-                <small>Watch an advertisement</small>
+            <div class="points">
+                🪙 <span id="points">0</span>
             </div>
-            <strong>+10</strong>
-        </button>
 
-        <button class="task" onclick="joinChannel()">
-            <span class="icon">📢</span>
-            <div>
-                <b>Join Channel</b>
-                <small>Join our Telegram channel</small>
+            <div class="cash-value" id="cashValue">
+                ≈ ₹0.00
             </div>
-            <strong>+10</strong>
-        </button>
 
-        <button class="task" onclick="inviteFriends()">
-            <span class="icon">👥</span>
-            <div>
-                <b>Invite Friends</b>
-                <small>Invite friends and earn</small>
+            <div class="balance-bottom">
+
+                <div>
+                    <small>Today</small>
+                    <b id="todayPoints">+0</b>
+                </div>
+
+                <div class="balance-line"></div>
+
+                <div>
+                    <small>Rate</small>
+                    <b>1K = ₹5</b>
+                </div>
+
             </div>
-            <strong>+50</strong>
-        </button>
 
-        <button class="task" onclick="playGame()">
-            <span class="icon">🎮</span>
-            <div>
-                <b>Play Game</b>
-                <small>Play and earn points</small>
+        </section>
+
+
+        <!-- DAILY BONUS -->
+        <section class="daily-card">
+
+            <div class="daily-icon">🎁</div>
+
+            <div class="daily-info">
+                <strong>Daily Bonus</strong>
+                <span>Come back every day</span>
             </div>
-            <strong>+1</strong>
-        </button>
 
-    </div>
+            <button id="dailyButton"
+                    class="claim-btn"
+                    onclick="claimDaily()">
+                +10
+            </button>
+
+        </section>
+
+
+        <!-- QUICK EARN -->
+        <div class="section-heading">
+            <div>
+                <h2>Earn Points</h2>
+                <p>Complete simple tasks</p>
+            </div>
+
+            <button class="see-all" onclick="openPage('earn')">
+                See all
+            </button>
+        </div>
+
+
+        <section class="task-grid">
+
+            <button class="task-card" onclick="watchAd()">
+
+                <div class="task-icon ad-icon">▶</div>
+
+                <div class="task-content">
+                    <strong>Watch Ad</strong>
+                    <span>Watch a rewarded ad</span>
+                </div>
+
+                <div class="reward">+10</div>
+
+            </button>
+
+
+            <button class="task-card" onclick="openPage('tasks')">
+
+                <div class="task-icon channel-icon">✈</div>
+
+                <div class="task-content">
+                    <strong>Join Channel</strong>
+                    <span>Complete Telegram task</span>
+                </div>
+
+                <div class="reward">+10</div>
+
+            </button>
+
+
+            <button class="task-card" onclick="openPage('refer')">
+
+                <div class="task-icon referral-icon">👥</div>
+
+                <div class="task-content">
+                    <strong>Invite Friends</strong>
+                    <span>Grow your referrals</span>
+                </div>
+
+                <div class="reward">+50</div>
+
+            </button>
+
+
+            <button class="task-card" onclick="openPage('games')">
+
+                <div class="task-icon game-icon">🎮</div>
+
+                <div class="task-content">
+                    <strong>Play Game</strong>
+                    <span>Play & earn points</span>
+                </div>
+
+                <div class="reward">+1</div>
+
+            </button>
+
+        </section>
+
+
+        <!-- STATS -->
+        <section class="stats-card">
+
+            <div class="stat">
+                <span>🪙</span>
+                <strong id="totalEarned">0</strong>
+                <small>Total earned</small>
+            </div>
+
+            <div class="stat">
+                <span>🎯</span>
+                <strong id="tasksDone">0</strong>
+                <small>Tasks done</small>
+            </div>
+
+            <div class="stat">
+                <span>👥</span>
+                <strong id="referrals">0</strong>
+                <small>Referrals</small>
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- EARN PAGE -->
+    <main id="earnPage" class="page">
+
+        <div class="page-header">
+            <h1>Earn</h1>
+            <p>Choose a way to earn points</p>
+        </div>
+
+        <div class="large-task" onclick="watchAd()">
+            <div class="large-task-icon">📺</div>
+
+            <div class="large-task-info">
+                <strong>Watch Rewarded Ad</strong>
+                <span>Complete an eligible advertisement</span>
+            </div>
+
+            <b>+10</b>
+        </div>
+
+        <div class="large-task" onclick="openPage('tasks')">
+            <div class="large-task-icon">📢</div>
+
+            <div class="large-task-info">
+                <strong>Telegram Tasks</strong>
+                <span>Complete available channel tasks</span>
+            </div>
+
+            <b>+10</b>
+        </div>
+
+        <div class="large-task" onclick="openPage('refer')">
+            <div class="large-task-icon">👥</div>
+
+            <div class="large-task-info">
+                <strong>Invite Friends</strong>
+                <span>Earn from eligible referrals</span>
+            </div>
+
+            <b>+50</b>
+        </div>
+
+        <div class="large-task" onclick="openPage('games')">
+            <div class="large-task-icon">🎮</div>
+
+            <div class="large-task-info">
+                <strong>Mini Games</strong>
+                <span>Play available games</span>
+            </div>
+
+            <b>+1</b>
+        </div>
+
+    </main>
+
+
+    <!-- TASKS PAGE -->
+    <main id="tasksPage" class="page">
+
+        <div class="page-header">
+            <h1>Tasks</h1>
+            <p>Complete tasks to collect points</p>
+        </div>
+
+        <div class="task-list">
+
+            <div class="list-task">
+                <div class="list-icon">📢</div>
+
+                <div>
+                    <strong>Join our channel</strong>
+                    <small>Join the official Telegram channel</small>
+                </div>
+
+                <button onclick="joinChannel()">+10</button>
+            </div>
+
+
+            <div class="list-task">
+                <div class="list-icon">⭐</div>
+
+                <div>
+                    <strong>Daily check-in</strong>
+                    <small>Claim once every day</small>
+                </div>
+
+                <button onclick="claimDaily()">+10</button>
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- REFER PAGE -->
+    <main id="referPage" class="page">
+
+        <div class="page-header">
+            <h1>Refer & Earn</h1>
+            <p>Invite friends to grow your rewards</p>
+        </div>
+
+        <section class="referral-card">
+
+            <div class="referral-big">👥</div>
+
+            <h2>Invite friends</h2>
+
+            <p>
+                Share your referral link with friends.
+                Eligible referrals can earn rewards.
+            </p>
+
+            <div class="ref-code" id="refCode">
+                Loading...
+            </div>
+
+            <button class="primary-btn" onclick="shareReferral()">
+                ↗ Share Invite Link
+            </button>
+
+        </section>
+
+        <section class="stats-card referral-stats">
+
+            <div class="stat">
+                <span>👥</span>
+                <strong id="referralCount">0</strong>
+                <small>Friends</small>
+            </div>
+
+            <div class="stat">
+                <span>🪙</span>
+                <strong id="referralEarned">0</strong>
+                <small>Earned</small>
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- GAMES PAGE -->
+    <main id="gamesPage" class="page">
+
+        <div class="page-header">
+            <h1>Games</h1>
+            <p>Take a quick break and play</p>
+        </div>
+
+        <section class="game-card">
+
+            <div class="game-emoji">⚡</div>
+
+            <h2>Tap Challenge</h2>
+
+            <p>
+                Tap as many times as you can before the timer ends.
+            </p>
+
+            <div class="game-score">
+                <span id="gameScore">0</span>
+                taps
+            </div>
+
+            <button class="game-btn"
+                    id="gameButton"
+                    onclick="startGame()">
+                Start Game
+            </button>
+
+            <div class="game-status" id="gameStatus">
+                Ready
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- WALLET PAGE -->
+    <main id="walletPage" class="page">
+
+        <div class="page-header">
+            <h1>Wallet</h1>
+            <p>Your points and reward history</p>
+        </div>
+
+        <section class="wallet-card">
+
+            <small>Available points</small>
+
+            <div class="wallet-points">
+                🪙 <span id="walletPoints">0</span>
+            </div>
+
+            <div id="walletCash">≈ ₹0.00</div>
+
+            <button class="primary-btn"
+                    onclick="showWithdrawInfo()">
+                Withdraw
+            </button>
+
+        </section>
+
+        <div class="info-box">
+            <strong>💡 Reward rate</strong>
+            <p>
+                1,000 points = ₹5 equivalent.
+                Actual redemption eligibility depends on
+                your reward program rules.
+            </p>
+        </div>
+
+    </main>
+
+
+    <!-- PROFILE PAGE -->
+    <main id="profilePage" class="page">
+
+        <div class="page-header">
+            <h1>Profile</h1>
+            <p>Your EarnPoint account</p>
+        </div>
+
+        <section class="profile-card">
+
+            <div class="profile-avatar" id="profileAvatar">
+                👤
+            </div>
+
+            <h2 id="profileName">EarnPoint User</h2>
+
+            <span id="profileUsername">@user</span>
+
+        </section>
+
+        <div class="settings-list">
+
+            <button onclick="showInfo('Account','Your Telegram account is connected to this Mini App.')">
+                <span>👤</span>
+                Account
+                <b>›</b>
+            </button>
+
+            <button onclick="showInfo('Help','Contact the official support account for assistance.')">
+                <span>❓</span>
+                Help & Support
+                <b>›</b>
+            </button>
+
+            <button onclick="showInfo('About','EarnPoint rewards users for eligible activities.')">
+                <span>ℹ️</span>
+                About
+                <b>›</b>
+            </button>
+
+        </div>
+
+    </main>
 
 </div>
 
-<nav>
-    <button>🏠<span>Home</span></button>
-    <button>💰<span>Earn</span></button>
-    <button>👥<span>Refer</span></button>
-    <button>👤<span>Profile</span></button>
+
+<!-- BOTTOM NAVIGATION -->
+<nav class="bottom-nav">
+
+    <button class="nav-item active"
+            data-page="home"
+            onclick="openPage('home')">
+
+        <span>⌂</span>
+        <small>Home</small>
+
+    </button>
+
+
+    <button class="nav-item"
+            data-page="earn"
+            onclick="openPage('earn')">
+
+        <span>⚡</span>
+        <small>Earn</small>
+
+    </button>
+
+
+    <button class="nav-item"
+            data-page="games"
+            onclick="openPage('games')">
+
+        <span>🎮</span>
+        <small>Games</small>
+
+    </button>
+
+
+    <button class="nav-item"
+            data-page="wallet"
+            onclick="openPage('wallet')">
+
+        <span>◈</span>
+        <small>Wallet</small>
+
+    </button>
+
+
+    <button class="nav-item"
+            data-page="profile"
+            onclick="openPage('profile')">
+
+        <span>●</span>
+        <small>Profile</small>
+
+    </button>
+
 </nav>
+
+
+<!-- TOAST -->
+<div id="toast" class="toast">
+    <span id="toastIcon">✓</span>
+    <span id="toastText">Done</span>
+</div>
+
 
 <script src="app.js"></script>
 
