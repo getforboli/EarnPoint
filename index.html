@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EarnPoint</title>
+
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <header>
+        <div>
+            <h1>EarnPoint</h1>
+            <p id="username">Welcome 👋</p>
+        </div>
+
+        <div class="avatar">👤</div>
+    </header>
+
+    <section class="balance">
+        <p>Your Balance</p>
+        <h2>🪙 <span id="points">0</span></h2>
+        <span id="rupees">≈ ₹0.00</span>
+    </section>
+
+    <h3>⚡ Earn Points</h3>
+
+    <div class="tasks">
+
+        <button class="task" onclick="loginReward()">
+            <span class="icon">📅</span>
+            <div>
+                <b>Daily Login</b>
+                <small>Claim your daily reward</small>
+            </div>
+            <strong>+10</strong>
+        </button>
+
+        <button class="task" onclick="watchAd()">
+            <span class="icon">📺</span>
+            <div>
+                <b>Watch Ad</b>
+                <small>Watch an advertisement</small>
+            </div>
+            <strong>+10</strong>
+        </button>
+
+        <button class="task" onclick="joinChannel()">
+            <span class="icon">📢</span>
+            <div>
+                <b>Join Channel</b>
+                <small>Join our Telegram channel</small>
+            </div>
+            <strong>+10</strong>
+        </button>
+
+        <button class="task" onclick="inviteFriends()">
+            <span class="icon">👥</span>
+            <div>
+                <b>Invite Friends</b>
+                <small>Invite friends and earn</small>
+            </div>
+            <strong>+50</strong>
+        </button>
+
+        <button class="task" onclick="playGame()">
+            <span class="icon">🎮</span>
+            <div>
+                <b>Play Game</b>
+                <small>Play and earn points</small>
+            </div>
+            <strong>+1</strong>
+        </button>
+
+    </div>
+
+</div>
+
+<nav>
+    <button>🏠<span>Home</span></button>
+    <button>💰<span>Earn</span></button>
+    <button>👥<span>Refer</span></button>
+    <button>👤<span>Profile</span></button>
+</nav>
+
+<script src="app.js"></script>
+
+</body>
+</html>

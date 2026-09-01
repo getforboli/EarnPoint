@@ -1,0 +1,139 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0b0b0f;
+    color: white;
+}
+
+.app {
+    padding: 20px;
+    padding-bottom: 90px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 {
+    margin: 0;
+    font-size: 27px;
+}
+
+header p {
+    color: #999;
+    margin-top: 5px;
+}
+
+.avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: #202027;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.balance {
+    margin-top: 20px;
+    padding: 22px;
+    border-radius: 20px;
+    background: #17171e;
+    text-align: center;
+}
+
+.balance p {
+    color: #999;
+    margin: 0;
+}
+
+.balance h2 {
+    font-size: 35px;
+    margin: 10px 0 5px;
+}
+
+#rupees {
+    color: #36e28b;
+}
+
+h3 {
+    margin-top: 25px;
+}
+
+.tasks {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.task {
+    width: 100%;
+    border: 0;
+    border-radius: 17px;
+    background: #17171e;
+    color: white;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    text-align: left;
+    gap: 13px;
+}
+
+.task:active {
+    transform: scale(.98);
+}
+
+.icon {
+    font-size: 27px;
+}
+
+.task div {
+    flex: 1;
+}
+
+.task b {
+    display: block;
+    font-size: 16px;
+}
+
+.task small {
+    color: #888;
+    display: block;
+    margin-top: 4px;
+}
+
+.task strong {
+    color: #36e28b;
+}
+
+nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    background: #15151b;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+nav button {
+    background: none;
+    border: 0;
+    color: white;
+    font-size: 20px;
+}
+
+nav span {
+    display: block;
+    font-size: 10px;
+    color: #999;
+    margin-top: 3px;
+}
